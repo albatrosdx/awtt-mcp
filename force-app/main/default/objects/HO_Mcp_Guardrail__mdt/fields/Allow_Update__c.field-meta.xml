@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_Update__c</fullName>
+    <label>更新許可</label>
+    <description>falseの場合は参照系ツールのみ利用可</description>
+    <type>Checkbox</type>
+    <defaultValue>false</defaultValue>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Object_API_Name__c</fullName>
+    <label>オブジェクトAPI名</label>
+    <description>対象オブジェクト</description>
+    <type>Text</type>
+    <length>80</length>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+</CustomField>

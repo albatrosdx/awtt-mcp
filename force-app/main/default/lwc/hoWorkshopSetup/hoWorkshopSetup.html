@@ -1,0 +1,68 @@
+<template>
+    <lightning-card title="ハンズオン データ準備" icon-name="standard:data_integration_hub">
+        <div class="slds-p-horizontal_medium">
+            <p class="slds-m-bottom_small">
+                「荒れた」テストデータ（表記ゆれ・重複・欠損・命名規則違反を含む）を生成します。
+                何度実行しても同じ内容になり、AI が修正した値も初期状態に戻ります。
+            </p>
+
+            <div class="slds-grid slds-wrap slds-gutters_x-small slds-m-bottom_medium">
+                <div class="slds-col slds-grow-none slds-m-bottom_x-small">
+                    <lightning-button variant="brand" label="テストデータを生成 / 初期状態に戻す" icon-name="utility:refresh"
+                        onclick={handleGenerate} disabled={busy}></lightning-button>
+                </div>
+                <div class="slds-col slds-grow-none slds-m-bottom_x-small">
+                    <lightning-button label="バックグラウンドで生成" icon-name="utility:clock"
+                        onclick={handleBackground} disabled={busy}></lightning-button>
+                </div>
+                <div class="slds-col slds-grow-none slds-m-bottom_x-small">
+                    <lightning-button label="状況を更新" icon-name="utility:sync"
+                        onclick={loadStatus} disabled={busy}></lightning-button>
+                </div>
+                <div class="slds-col slds-grow-none slds-m-bottom_x-small">
+                    <lightning-button variant="destructive-text" label="ハンズオンデータを全削除" icon-name="utility:delete"
+                        onclick={handleDelete} disabled={busy}></lightning-button>
+                </div>
+            </div>
+
+            <template lwc:if={busy}>
+                <div class="slds-m-bottom_medium">
+                    <p class="slds-m-bottom_x-small">{progressLabel}</p>
+                    <lightning-progress-bar value={progress} size="large"></lightning-progress-bar>
+                </div>
+            </template>
+
+            <template lwc:if={backgroundJobStatus}>
+                <p class="slds-m-bottom_small slds-text-color_weak">直近のバックグラウンド生成ジョブ: {backgroundJobStatus}</p>
+            </template>
+
+            <lightning-datatable key-field="objectName" data={rows} columns={statusColumns}
+                hide-checkbox-column></lightning-datatable>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="ベースラインとの差分（更新前後チェック）" icon-name="standard:record_update" class="slds-m-top_medium">
+        <div class="slds-p-horizontal_medium">
+            <p class="slds-m-bottom_small">
+                生成直後のスナップショットと現在値を比較します。標準MCPツール・画面・カスタムツールのどの経路で変更されても検出できます。
+            </p>
+            <div class="slds-grid slds-wrap slds-gutters_x-small slds-grid_vertical-align-end slds-m-bottom_small">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-combobox label="対象オブジェクト" value={diffObject} options={objectOptions}
+                        onchange={handleObjectChange}></lightning-combobox>
+                </div>
+                <div class="slds-col slds-grow-none">
+                    <lightning-button label="差分を表示" icon-name="utility:search" onclick={loadDiff}
+                        disabled={busy}></lightning-button>
+                </div>
+            </div>
+            <template lwc:if={diffLoaded}>
+                <p class="slds-m-bottom_x-small">{diffSummary}</p>
+                <div style="height: 420px">
+                    <lightning-datatable key-field="key" data={diffRows} columns={diffColumns}
+                        hide-checkbox-column></lightning-datatable>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

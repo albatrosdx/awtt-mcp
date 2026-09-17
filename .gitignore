@@ -1,0 +1,7 @@
+.sf/
+.sfdx/
+.vscode/
+.localdevserver/
+node_modules/
+*.log
+.claude/

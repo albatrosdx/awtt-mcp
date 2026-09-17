@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HO_Sales_Rep__c</fullName>
+    <label>HO担当営業</label>
+    <description>活動を実施した担当営業名（ハンズオン用。DE組織はユーザー数が限られるためテキストで保持）</description>
+    <type>Text</type>
+    <length>40</length>
+    <required>false</required>
+    <externalId>false</externalId>
+    <unique>false</unique>
+</CustomField>

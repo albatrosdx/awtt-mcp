@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HO_Corporate_Number__c</fullName>
+    <label>HO法人番号</label>
+    <description>13桁の法人番号。重複判定の手がかり</description>
+    <type>Text</type>
+    <length>20</length>
+    <required>false</required>
+    <externalId>false</externalId>
+    <unique>false</unique>
+</CustomField>

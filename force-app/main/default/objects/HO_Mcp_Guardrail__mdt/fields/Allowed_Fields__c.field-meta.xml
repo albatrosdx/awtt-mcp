@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allowed_Fields__c</fullName>
+    <label>更新許可項目</label>
+    <description>カンマ区切りの項目API名。ここにない項目はプレビュー時点で拒否</description>
+    <type>LongTextArea</type>
+    <length>10000</length>
+    <visibleLines>4</visibleLines>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+</CustomField>

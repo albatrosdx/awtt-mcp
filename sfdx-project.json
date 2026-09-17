@@ -1,0 +1,21 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "package": "AWTT MCP Handson",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "default": true,
+      "versionDescription": ""
+    }
+  ],
+  "name": "awtt-mcp",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "60.0",
+  "packageAliases": {
+    "AWTT MCP Handson": "0HogL0000004abBSAQ",
+    "AWTT MCP Handson@0.1.0-1": "04tgL000000TLc9QAG",
+    "AWTT MCP Handson@0.1.0-2": "04tgL000000TM1xQAG"
+  }
+}

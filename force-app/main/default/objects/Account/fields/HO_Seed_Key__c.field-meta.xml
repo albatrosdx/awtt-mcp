@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HO_Seed_Key__c</fullName>
+    <label>HOシードキー</label>
+    <description>ハンズオン用テストデータの識別キー（再生成・差分比較に使用）</description>
+    <type>Text</type>
+    <length>40</length>
+    <required>false</required>
+    <externalId>true</externalId>
+    <unique>true</unique>
+    <caseSensitive>false</caseSensitive>
+</CustomField>

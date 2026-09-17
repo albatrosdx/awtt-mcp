@@ -1,0 +1,12 @@
+{
+  "orgName": "AWTT MCP Handson",
+  "edition": "Developer",
+  "language": "ja",
+  "country": "JP",
+  "features": [],
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    }
+  }
+}

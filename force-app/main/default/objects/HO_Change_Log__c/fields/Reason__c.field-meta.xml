@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason__c</fullName>
+    <label>変更理由</label>
+    <description>AI/実行者が入力した変更理由</description>
+    <type>Text</type>
+    <length>255</length>
+    <required>false</required>
+    <externalId>false</externalId>
+    <unique>false</unique>
+</CustomField>

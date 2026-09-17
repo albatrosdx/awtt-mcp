@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>HO変更ログ</label>
+    <pluralLabel>HO変更ログ</pluralLabel>
+    <description>MCPカスタムツール経由の更新プレビュー・適用・ロールバック履歴（項目単位）</description>
+    <nameField>
+        <label>ログ番号</label>
+        <type>AutoNumber</type>
+        <displayFormat>CL-{000000}</displayFormat>
+        <startingNumber>1</startingNumber>
+    </nameField>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <sharingModel>ReadWrite</sharingModel>
+    <enableActivities>false</enableActivities>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableBulkApi>true</enableBulkApi>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <searchLayouts/>
+</CustomObject>

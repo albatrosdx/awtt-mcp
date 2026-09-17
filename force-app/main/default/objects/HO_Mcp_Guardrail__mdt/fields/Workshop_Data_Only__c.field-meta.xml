@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Workshop_Data_Only__c</fullName>
+    <label>ハンズオンデータのみ</label>
+    <description>trueの場合、HO_Workshop_Data__c=true のレコード以外は更新を拒否する</description>
+    <type>Checkbox</type>
+    <defaultValue>true</defaultValue>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+</CustomField>
