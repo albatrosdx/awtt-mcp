@@ -44,6 +44,14 @@
 
 ## セットアップ
 
+> **PowerShell スクリプトが実行できない場合**
+> `このシステムではスクリプトの実行が無効になっているため…` と出るときは実行ポリシーの制限です。
+> 次のように1回限りのバイパスで実行してください（マシンの設定は変わりません）。
+> ```powershell
+> powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-org.ps1 -TargetOrg handson01
+> ```
+> 常時許可する場合は `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` を実行します。
+
 ### A. 自分の開発組織に直接デプロイ（講師・メンター向け）
 
 ```powershell
