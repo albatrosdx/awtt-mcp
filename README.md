@@ -4,7 +4,7 @@ Salesforce World Tour Tokyo 2026（2026/11/19）のワークショップ
 「Salesforce データ整備・可視化 体験ワークショップ」の手順書です。
 
 - 当日のスライド: [Hosted MCP Server データ整備ワークショップ](https://docs.google.com/presentation/d/15npCY9T6a-DPF2KnRalCHNqW7wE7HqIU_-CZ1Xca6Xg/edit)
-- パッケージのインストール URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuKnQAI
+- パッケージのインストール URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuRFQAY
 
 > ※会社名・人名・数値はすべて架空のデータです。
 > ※画面の名前は 2026年9月時点の情報です。リリースで変わることがあります。
@@ -116,7 +116,7 @@ Hosted MCP Server には、外部クライアントアプリケーション `Cla
 
 インストール URL:
 
-https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuKnQAI
+https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuRFQAY
 
 「管理者のみインストール」を選んで「インストール」を押し、完了メールが届くまで待ちます。
 
