@@ -73,7 +73,7 @@ sf org login web --alias handson01
 ./scripts/create-package.ps1 -DevHub prod -NoPromote  # スクラッチ組織での検証用（ベータ版）
 ```
 
-最新バージョン: `0.1.0.3`（`04tgL000000fuCjQAI`、外部クライアントアプリ `Claude` を追加。**リリース済み（昇格済み）**のため Developer Edition・本番組織・Sandbox にインストール可能）
+最新バージョン: `0.3.0.1`（`04tgL000000fuRFQAY`、Dev Hub 側の外部クライアントアプリを「パッケージ化」にした後に作成。昇格後は Developer Edition・本番組織・Sandbox にインストール可能）
 
 参加者の作業は3つだけです。
 
