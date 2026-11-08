@@ -29,7 +29,7 @@ Salesforce World Tour Tokyo 2026（2026/11/19）のワークショップ
 ```mermaid
 flowchart LR
   You["あなた<br/>日本語で頼む"] --> Claude["Claude<br/>（カスタムコネクタ）"]
-  Claude -- "OAuth<br/>外部クライアントアプリ「Claude」" --> MCP["Hosted MCP Server<br/>sobject-reads / HO Data Steward"]
+  Claude -- "OAuth<br/>外部クライアントアプリ「Claude」" --> MCP["Hosted MCP Server<br/>sobject-mutations / HO Data Steward"]
   MCP -- "あなたの権限で" --> Org[("ハンズオン組織")]
 ```
 
@@ -39,7 +39,7 @@ flowchart LR
 
 | MCP サーバ | 種類 | できること |
 | --- | --- | --- |
-| `sobject-reads`（標準） | 見る | スキーマ参照・SOQL・検索・集計 |
+| `sobject-mutations`（標準） | 見る＋直す | スキーマ参照・SOQL・検索に加え、レコードの作成・更新（削除は不可） |
 | `HO Data Steward`（カスタム） | 見る＋直す | 品質レポート、ベースラインとの差分、一括更新の**プレビュー → 承認 → 適用 → ロールバック**、取引先の重複統合 |
 
 更新は必ず「調べる → 確認（まだ変わらない）→ あなたが OK → 反映 → 見直す」の順に進みます。
@@ -62,7 +62,7 @@ flowchart LR
 
 Hosted MCP Server には、外部クライアントアプリケーション `Claude` を通して接続します。
 
-- Claude に入力するコンシューマ鍵は講師が案内します（クライアントシークレットは不要）
+- Claude に入力するコンシューマ鍵（OAuth Client ID）は全員共通で、[4-1](#4-1-用意するもの) に載せています。コピーして貼り付けてください（クライアントシークレットは不要）
 - `設定 → 外部クライアントアプリケーションマネージャ → Claude → ポリシー` で、接続を許可するユーザーを確認してください
 
 ### 2-2. 権限セットと接続ユーザー
@@ -78,7 +78,7 @@ Hosted MCP Server には、外部クライアントアプリケーション `Cla
 
 ### 2-3. MCP サーバの有効化とカスタムサーバの作成
 
-1. `設定 → API カタログ → MCP サーバ` → `sobject-reads` を開いて**有効化**
+1. `設定 → API カタログ → MCP サーバ` → `sobject-mutations` を開いて**有効化**
 2. 「カスタムサーバ」タブ → **新規**
    - 表示名: `HO Data Steward` ／ API 名: `ho_data_steward`
    - 説明: 「ハンズオン用データの品質調査と、プレビュー・承認・ロールバック付きの一括更新」
@@ -93,13 +93,15 @@ Hosted MCP Server には、外部クライアントアプリケーション `Cla
    | `HO: 一括更新のロールバック` | 直す（元に戻す） |
    | `HO: 取引先の重複統合` | 既定は影響確認のみ（dryRun） |
 
-4. 各サーバの詳細ページで**サーバ URL をコピー**しておきます
+4. **自分の組織**で有効化した各サーバの詳細ページを開き、表示されている**サーバ URL をコピー**しておきます
 
-| サーバ | URL |
+| サーバ | コピー元 |
 | --- | --- |
-| `sobject-reads`（本番・Developer Edition） | `https://api.salesforce.com/platform/mcp/v1/platform/sobject-reads` |
-| `sobject-reads`（Sandbox・スクラッチ組織） | `https://api.salesforce.com/platform/mcp/v1/sandbox/sobject-reads` |
-| `HO Data Steward` | カスタムサーバの詳細ページに表示される URL |
+| `sobject-mutations` | `設定 → API カタログ → MCP サーバ → sobject-mutations` の詳細ページ |
+| `HO Data Steward` | `設定 → API カタログ → MCP サーバ → カスタムサーバ → HO Data Steward` の詳細ページ |
+
+> サーバ URL は、Claude のカスタムコネクタの「リモート MCP サーバーの URL」に入力します。
+> 他の人の URL や資料のサンプル URL ではなく、**自分の組織の詳細ページに表示された URL** を使ってください。
 
 ---
 
@@ -140,16 +142,24 @@ https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuCjQA
 ## 4. Claude のカスタムコネクタを作成して接続する
 
 claude.ai（ブラウザ）と Claude Desktop のどちらでも同じ手順です。コネクタはアカウントに保存されるため、一方で追加すればもう一方でも使えます。
-**`sobject-reads` と `HO Data Steward` の2つ**を、それぞれ別のコネクタとして追加します。
+**`sobject-mutations` と `HO Data Steward` の2つ**を、それぞれ別のコネクタとして追加します。
 
 ### 4-1. 用意するもの
 
 | 項目 | 値 |
 | --- | --- |
-| リモート MCP サーバの URL | [2-3](#2-3-mcp-サーバの有効化とカスタムサーバの作成) でコピーしたサーバ URL |
-| OAuth Client ID | 外部クライアントアプリ `Claude` のコンシューマ鍵（講師が案内します） |
+| リモート MCP サーバの URL | [2-3](#2-3-mcp-サーバの有効化とカスタムサーバの作成) で**自分の組織**の詳細ページからコピーしたサーバ URL（2つ） |
+| OAuth Client ID | 下のコンシューマ鍵（全員共通） |
 | OAuth Client Secret | 空欄のまま（PKCE を使うため不要） |
 | Salesforce のユーザー | ハンズオン組織のユーザー（MCP 用の権限セットを割り当てたもの） |
+
+OAuth Client ID（外部クライアントアプリ `Claude` のコンシューマ鍵）:
+
+```text
+3MVG9dAEux2v1sLs2S9rOLjectsSJLrg6wbbnd46dWlZb6t0M.B2vZweYe_DtAya3Eyg9VB0bpndkGaiQu3gq
+```
+
+> この値は PKCE を使う公開クライアントの ID で、秘密情報ではありません。これだけでは組織にアクセスできず、接続には各自の Salesforce ログインと許可が必要です。
 
 ### 4-2. コネクタを追加する
 
@@ -159,10 +169,12 @@ claude.ai（ブラウザ）と Claude Desktop のどちらでも同じ手順で�
 
    | 入力欄 | 1つ目 | 2つ目 |
    | --- | --- | --- |
-   | 名前 | `Salesforce sobject-reads` | `Salesforce HO Data Steward` |
-   | リモート MCP サーバーの URL | `sobject-reads` のサーバ URL | `HO Data Steward` のサーバ URL |
-   | 詳細設定 → OAuth Client ID | コンシューマ鍵 | コンシューマ鍵（同じもの） |
+   | 名前 | `Salesforce sobject-mutations` | `Salesforce HO Data Steward` |
+   | リモート MCP サーバーの URL | 自分の組織の `sobject-mutations` のサーバ URL | 自分の組織の `HO Data Steward` のサーバ URL |
+   | 詳細設定 → OAuth Client ID | [4-1](#4-1-用意するもの) のコンシューマ鍵を貼り付け | 同じコンシューマ鍵を貼り付け |
    | 詳細設定 → OAuth Client Secret | 空欄 | 空欄 |
+
+   > OAuth Client ID は自動では入りません。**詳細設定を開いて必ず貼り付け**てください。空欄のままだと連携に失敗します。
 
 4. **追加** をクリック
 
@@ -197,7 +209,8 @@ claude.ai（ブラウザ）と Claude Desktop のどちらでも同じ手順で�
 | `invalid_client_id` | Claude に入れたコンシューマ鍵が正しいか（前後の空白に注意） |
 | 接続できたがツールが出てこない | API カタログでサーバが有効か／カスタムサーバのツールが有効か |
 | ツールが `No such column` などのエラー | 接続ユーザーに `HO_MCP_ReadOnly` / `HO_MCP_Editor` が付いているか |
-| 本番用 URL で Sandbox に接続できない | Sandbox・スクラッチ組織は URL の `/v1/platform/` を `/v1/sandbox/` に変える |
+| 接続できない・別の組織につながる | コネクタの URL が**自分の組織**のサーバ詳細ページに表示された URL か（サンプルや他の人の URL を使っていないか） |
+| `invalid_client_id` 以外の OAuth エラーで連携できない | 詳細設定の OAuth Client ID が空欄になっていないか（貼り付けが必要） |
 
 ---
 
