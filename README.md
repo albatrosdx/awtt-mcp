@@ -3,9 +3,8 @@
 Salesforce World Tour Tokyo 2026（2026/11/19）のワークショップ
 「Salesforce データ整備・可視化 体験ワークショップ」の手順書です。
 
-- 運営: Salesforce Architect Group Tokyo / Osaka（[sfag.connpass.com](https://sfag.connpass.com) ／ X: #archjapan）
 - 当日のスライド: [Hosted MCP Server データ整備ワークショップ](https://docs.google.com/presentation/d/15npCY9T6a-DPF2KnRalCHNqW7wE7HqIU_-CZ1Xca6Xg/edit)
-- パッケージの中身・開発・配布の手順は [docs/developer/README.md](docs/developer/README.md) にあります
+- パッケージのインストール URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuCjQAI
 
 > ※会社名・人名・数値はすべて架空のデータです。
 > ※画面の名前は 2026年9月時点の情報です。リリースで変わることがあります。
@@ -51,44 +50,20 @@ flowchart LR
 ## 2. 事前準備（管理者が最初に1回だけ）
 
 > **当日は講師側で準備済みです。** 自分の組織で再現するときの手順として載せています。
-> 設定値の詳細は [docs/mcp-architecture.md](docs/mcp-architecture.md) を参照してください。
 
 | # | やること | 内容 |
 | --- | --- | --- |
-| 01 | アプリを登録 | 外部クライアントアプリケーション（ECA）を作る ※パッケージに同梱済み |
-| 02 | AI 用の権限 | 「見るだけ」「直せる」の権限セットを作る ※パッケージに同梱済み |
+| 01 | 外部クライアントアプリを確認 | Claude 用の外部クライアントアプリ `Claude` の接続ポリシーを確認する |
+| 02 | AI 用の権限 | 接続ユーザーに「見るだけ」「直せる」の権限セットを割り当てる |
 | 03 | MCP サーバを用意 | 標準サーバを有効化し、カスタムサーバにツールを登録する |
 | 04 | Claude に登録 | 接続先を入れ、ログインして許可する（[4章](#4-claude-のカスタムコネクタを作成して接続する)） |
 
 ### 2-1. 外部クライアントアプリケーション「Claude」
 
-Hosted MCP Server には従来の「接続アプリケーション」ではなく、**外部クライアントアプリケーション（External Client App）** で接続します。
-パッケージ `AWTT MCP Handson` には、Claude 用の設定を済ませた ECA **`Claude`** が含まれているため、自分で作る必要はありません。
+Hosted MCP Server には、外部クライアントアプリケーション `Claude` を通して接続します。
 
-| 設定 | 値 |
-| --- | --- |
-| コールバック URL | `https://claude.ai/api/mcp/auth_callback` |
-| OAuth 範囲 | `mcp_api`（MCP サーバへのアクセス）、`refresh_token, offline_access` |
-| フロー | 名前付きユーザー用の JWT ベースのアクセストークンを発行 |
-| セキュリティ | PKCE 必須（クライアントシークレットは不要） |
-
-- OAuth コンシューマ（コンシューマ鍵）は配布元の Dev Hub 側で管理しており、**全参加者が同じコンシューマ鍵**を使います。鍵は講師が案内します
-- インストール後、`設定 → 外部クライアントアプリケーションマネージャ → Claude → ポリシー` で、接続を許可するユーザー（自己承認の可否など）を確認してください
-
-<details>
-<summary>パッケージを使わずに自分で ECA を作る場合</summary>
-
-1. `設定 → 外部クライアントアプリケーションマネージャ → 新規外部クライアントアプリケーション`
-2. 名前（例: `Claude`）・連絡先メールを入力、配布状態は「ローカル」
-3. 「OAuth を有効化」をオン
-   - コールバック URL: `https://claude.ai/api/mcp/auth_callback`
-   - 選択した OAuth 範囲: `MCP サーバーへのアクセス（mcp_api）`、`いつでも要求を実行（refresh_token, offline_access）`
-   - 「名前付きユーザー用の JWT ベースのアクセストークンを発行」をオン
-   - 「サポートされる認証フローに Proof Key for Code Exchange (PKCE) 拡張を要求」をオン
-4. 保存後、`設定` タブの「コンシューマー鍵と秘密」からコンシューマ鍵をコピー（Claude に入力します）
-
-`api` スコープではなく **`mcp_api`** を選ぶ点に注意してください。
-</details>
+- Claude に入力するコンシューマ鍵は講師が案内します（クライアントシークレットは不要）
+- `設定 → 外部クライアントアプリケーションマネージャ → Claude → ポリシー` で、接続を許可するユーザーを確認してください
 
 ### 2-2. 権限セットと接続ユーザー
 
@@ -139,14 +114,11 @@ Hosted MCP Server には従来の「接続アプリケーション」ではな�
 
 ### 01. パッケージを入れる
 
-インストール URL（バージョン `0.1.0.3`）:
+インストール URL:
 
-```
 https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuCjQAI
-```
 
-- Sandbox に入れる場合は `login.salesforce.com` を `test.salesforce.com` に置き換えます
-- 「管理者のみインストール」を選んで「インストール」を押し、完了メールが届くまで待ちます
+「管理者のみインストール」を選んで「インストール」を押し、完了メールが届くまで待ちます。
 
 ### 03. 練習用データを作る
 
