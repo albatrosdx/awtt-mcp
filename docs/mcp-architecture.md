@@ -76,6 +76,23 @@ Hosted MCP では従来の接続アプリケーションは使えず、外部ク
 
 `api` スコープではなく `mcp_api` を使う点に注意してください。
 
+#### パッケージに含まれる Claude 用 ECA
+
+パッケージ `AWTT MCP Handson` には、上の設定（claude.ai のコールバック URL・PKCE 必須・`mcp_api` / `refresh_token`・名前付きユーザー JWT）を
+済ませた外部クライアントアプリ **`Claude`** が含まれています。参加者が自分の組織で ECA を作る必要はありません。
+
+| ファイル | 内容 |
+| --- | --- |
+| `externalClientApps/Claude.eca-meta.xml` | ECA 本体（`distributionState = Packaged`） |
+| `extlClntAppOauthSettings/Claude_oauth.ecaOauth-meta.xml` | OAuth 範囲と、Dev Hub 上の OAuth コンシューマへの参照（`oauthLink`） |
+
+- OAuth コンシューマ（コンシューマ鍵・コールバック URL・PKCE などのグローバル OAuth 設定）は **Dev Hub `prod_devops2` 側にだけ**あり、
+  インストール先の組織はそれを共有します。そのため全参加者が**同じコンシューマ鍵**を Claude に入力します（鍵は Dev Hub の
+  設定 → 外部クライアントアプリケーションマネージャ → `Claude` → OAuth 設定で確認。PKCE を使うので秘密は不要）
+- グローバル OAuth 設定（`*.ecaGlblOauth-meta.xml`）はパッケージ化できず、鍵を含むためソース管理もしません（`.forceignore` で除外）
+- コールバック URL・PKCE などを変えるときは Dev Hub 側の ECA を変更します（パッケージの再作成は不要）
+- ポリシー（許可ユーザー・リフレッシュトークンの有効期限など）はインストール先で既定値が作られ、各組織の管理者が変更できます
+
 ### 3-3. MCP サーバの有効化とカスタムサーバの作成
 
 1. 設定 → API カタログ → MCP サーバ → `sobject-reads` を開いて有効化

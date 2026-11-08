@@ -26,6 +26,7 @@
 | 権限セット | `HO_Workshop_Admin` | 講師・メンター（準備画面 + 全ツール） |
 | | `HO_MCP_ReadOnly` | 参加者・前半（参照系ツールのみ） |
 | | `HO_MCP_Editor` | 参加者・後半（更新系ツール。削除は取引先統合のための取引先のみ） |
+| 外部クライアントアプリ | `Claude` | Claude Desktop / claude.ai のカスタムコネクタ用（OAuth コンシューマは Dev Hub 側。詳細は [docs/mcp-architecture.md](docs/mcp-architecture.md) 3-2） |
 | テスト | `HO_WorkshopTest` | 11メソッド。最低限のアクセスプロファイル + `HO_MCP_ReadOnly` のユーザーで「分析はできるが更新は拒否される」ことも検証 |
 
 ## 生成されるデータ（どの組織でも同じ内容）
@@ -72,7 +73,7 @@ sf org login web --alias handson01
 ./scripts/create-package.ps1 -DevHub prod -NoPromote  # スクラッチ組織での検証用（ベータ版）
 ```
 
-最新バージョン: `0.1.0.2`（`04tgL000000TM1xQAG`、ベータ版・未昇格のためスクラッチ組織と Sandbox にのみインストール可能）
+最新バージョン: `0.1.0.3`（`04tgL000000fuCjQAI`、外部クライアントアプリ `Claude` を追加。ベータ版・未昇格のためスクラッチ組織と Sandbox にのみインストール可能）
 
 参加者の作業は3つだけです。
 
