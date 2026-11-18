@@ -85,6 +85,14 @@ public inherited sharing class HO_DataFactory {
         'A12|D1|株式会社はるか教育 大阪支店|Y'
     };
 
+    // 統合してはいけない重複（別法人・支店）。それ以外の重複には関連レコードを付けず、統合しても付け替えが起きないようにする
+    @TestVisible
+    private static final Set<String> NOT_MERGEABLE = new Set<String>{ 'A05-D1', 'A12-D1' };
+
+    private static Boolean isMergeTarget(List<String> dup) {
+        return !NOT_MERGEABLE.contains(dup[0] + '-' + dup[1]);
+    }
+
     private static final Map<String, List<String>> INDUSTRY_VARIANTS = new Map<String, List<String>>{
         'Manufacturing' => new List<String>{ 'Manufacturing', '製造業', '製造', 'メーカー' },
         'Technology' => new List<String>{ 'Technology', 'IT', '情報通信業', 'ソフトウェア', 'ＩＴ' },
@@ -431,7 +439,9 @@ public inherited sharing class HO_DataFactory {
             String domain = COMPANIES[parentIndex].split('\\|')[5];
             // D1 は親取引先の1人目と同一人物（取引先責任者の重複）
             Integer person = dup[1] == 'D1' ? Math.mod(parentIndex * 3, PEOPLE.size()) : Math.mod(parentIndex * 7 + 5, PEOPLE.size());
-            contacts.add(buildContact('HO-CON-' + dup[0] + '-' + dup[1], 'HO-ACC-' + dup[0] + '-' + dup[1], person, domain, c++));
+            // 統合対象の重複には付けず、親取引先に付ける（同一人物の重複は親取引先の中で残る）
+            String accountKey = isMergeTarget(dup) ? 'HO-ACC-' + dup[0] : 'HO-ACC-' + dup[0] + '-' + dup[1];
+            contacts.add(buildContact('HO-CON-' + dup[0] + '-' + dup[1], accountKey, person, domain, c++));
         }
         saveBySeedKey(contacts);
         return contacts.size();
@@ -527,9 +537,15 @@ public inherited sharing class HO_DataFactory {
             String accountKey;
             String accountLabel;
             if (r.chance(18)) {
+                // 乱数の消費順は変えずに、統合対象の重複が選ばれたら親取引先に付ける（統合しても付け替えが起きない）
                 List<String> dup = DUPLICATES[r.nextInt(DUPLICATES.size())].split('\\|');
-                accountKey = 'HO-ACC-' + dup[0] + '-' + dup[1];
-                accountLabel = dup[2].trim();
+                if (isMergeTarget(dup)) {
+                    accountKey = 'HO-ACC-' + dup[0];
+                    accountLabel = COMPANIES[Integer.valueOf(dup[0].substring(1)) - 1].split('\\|')[1];
+                } else {
+                    accountKey = 'HO-ACC-' + dup[0] + '-' + dup[1];
+                    accountLabel = dup[2].trim();
+                }
             } else {
                 List<String> co = COMPANIES[r.nextInt(COMPANIES.size())].split('\\|');
                 accountKey = 'HO-ACC-' + co[0];

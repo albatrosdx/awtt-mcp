@@ -3,8 +3,8 @@
     {
       "path": "force-app",
       "package": "AWTT MCP Handson",
-      "versionName": "ver 0.4",
-      "versionNumber": "0.4.0.NEXT",
+      "versionName": "ver 0.5",
+      "versionNumber": "0.5.0.NEXT",
       "default": true,
       "versionDescription": ""
     }
@@ -20,6 +20,7 @@
     "AWTT MCP Handson@0.1.0-3": "04tgL000000fuCjQAI",
     "AWTT MCP Handson@0.2.0-1": "04tgL000000fuKnQAI",
     "AWTT MCP Handson@0.3.0-1": "04tgL000000fuRFQAY",
-    "AWTT MCP Handson@0.4.0-1": "04tgL000000i9dtQAA"
+    "AWTT MCP Handson@0.4.0-1": "04tgL000000i9dtQAA",
+    "AWTT MCP Handson@0.5.0-1": "04tgL000000i9vdQAA"
   }
 }
