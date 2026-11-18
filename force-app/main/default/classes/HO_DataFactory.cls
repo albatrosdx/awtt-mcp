@@ -595,7 +595,8 @@ public inherited sharing class HO_DataFactory {
             List<String> rep = repProfiles.get(o.HO_Sales_Rep__c);
             Decimal factor = rep == null ? 1 : Decimal.valueOf(rep[3]);
             Integer depth = o.StageName.startsWith('Closed') ? 6 : OPEN_STAGES.indexOf(o.StageName);
-            Integer count = Math.min(12, ((depth + 2) * factor * (50 + r.nextInt(100)) / 100).round(System.RoundingMode.HALF_UP).intValue());
+            // Developer Edition のデータ容量（5MB・1件2KB）に収めるため、活動は商談1件あたり平均2〜3件に抑える
+            Integer count = Math.min(4, ((depth + 2) * factor * (50 + r.nextInt(100)) / 300).round(System.RoundingMode.HALF_UP).intValue());
             for (Integer k = 0; k < count; k++) {
                 Date latest = o.CloseDate < today.addDays(14) ? o.CloseDate : today.addDays(14);
                 Date activityDate = latest.addDays(-r.nextInt(90));
