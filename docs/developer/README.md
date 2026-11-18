@@ -73,7 +73,7 @@ sf org login web --alias handson01
 ./scripts/create-package.ps1 -DevHub prod -NoPromote  # スクラッチ組織での検証用（ベータ版）
 ```
 
-最新バージョン: `0.4.0.1`（`04tgL000000i9dtQAA`、活動データを約3分の1に削減して Developer Edition のデータ容量に収めた版。昇格後は Developer Edition・本番組織・Sandbox にインストール可能）
+最新バージョン: `0.5.0.1`（`04tgL000000i9vdQAA`、統合される側の重複取引先に関連レコードを付けない版。昇格後は Developer Edition・本番組織・Sandbox にインストール可能）
 
 参加者の作業は3つだけです。
 
