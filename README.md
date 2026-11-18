@@ -29,7 +29,7 @@ Salesforce World Tour Tokyo 2026（2026/11/19）のワークショップ
 ```mermaid
 flowchart LR
   You["あなた<br/>日本語で頼む"] --> Claude["Claude<br/>（カスタムコネクタ）"]
-  Claude -- "OAuth<br/>外部クライアントアプリ「Claude」" --> MCP["Hosted MCP Server<br/>sobject-mutations / HO Data Steward"]
+  Claude -- "OAuth<br/>外部クライアントアプリ「Claude」" --> MCP["Hosted MCP Server<br/>sobject-all / HO Data Steward"]
   MCP -- "あなたの権限で" --> Org[("ハンズオン組織")]
 ```
 
@@ -39,7 +39,7 @@ flowchart LR
 
 | MCP サーバ | 種類 | できること |
 | --- | --- | --- |
-| `sobject-mutations`（標準） | 見る＋直す | スキーマ参照・SOQL・検索に加え、レコードの作成・更新（削除は不可） |
+| `sobject-all`（標準） | 見る＋直す＋消す | スキーマ参照・SOQL・検索に加え、レコードの作成・更新・削除（取引先の統合に必要） |
 | `HO Data Steward`（カスタム） | 見る＋直す | 品質レポート、ベースラインとの差分、一括更新の**プレビュー → 承認 → 適用 → ロールバック**、取引先の重複統合 |
 
 更新は必ず「調べる → 確認（まだ変わらない）→ あなたが OK → 反映 → 見直す」の順に進みます。
@@ -78,7 +78,7 @@ Hosted MCP Server には、外部クライアントアプリケーション `Cla
 
 ### 2-3. MCP サーバの有効化とカスタムサーバの作成
 
-1. `設定 → API カタログ → MCP サーバ` → `sobject-mutations` を開いて**有効化**
+1. `設定 → API カタログ → MCP サーバ` → `sobject-all` を開いて**有効化**
 2. 「カスタムサーバ」タブ → **新規**
    - 表示名: `HO Data Steward` ／ API 名: `ho_data_steward`
    - 説明: 「ハンズオン用データの品質調査と、プレビュー・承認・ロールバック付きの一括更新」
@@ -97,7 +97,7 @@ Hosted MCP Server には、外部クライアントアプリケーション `Cla
 
 | サーバ | コピー元 |
 | --- | --- |
-| `sobject-mutations` | `設定 → API カタログ → MCP サーバ → sobject-mutations` の詳細ページ |
+| `sobject-all` | `設定 → API カタログ → MCP サーバ → sobject-all` の詳細ページ |
 | `HO Data Steward` | `設定 → API カタログ → MCP サーバ → カスタムサーバ → HO Data Steward` の詳細ページ |
 
 > サーバ URL は、Claude のカスタムコネクタの「リモート MCP サーバーの URL」に入力します。
@@ -142,7 +142,7 @@ https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000i9dtQA
 ## 4. Claude のカスタムコネクタを作成して接続する
 
 claude.ai（ブラウザ）と Claude Desktop のどちらでも同じ手順です。コネクタはアカウントに保存されるため、一方で追加すればもう一方でも使えます。
-**`sobject-mutations` と `HO Data Steward` の2つ**を、それぞれ別のコネクタとして追加します。
+**`sobject-all` と `HO Data Steward` の2つ**を、それぞれ別のコネクタとして追加します。
 
 ### 4-1. 用意するもの
 
@@ -169,8 +169,8 @@ OAuth Client ID（外部クライアントアプリ `Claude` のコンシュー�
 
    | 入力欄 | 1つ目 | 2つ目 |
    | --- | --- | --- |
-   | 名前 | `Salesforce sobject-mutations` | `Salesforce HO Data Steward` |
-   | リモート MCP サーバーの URL | 自分の組織の `sobject-mutations` のサーバ URL | 自分の組織の `HO Data Steward` のサーバ URL |
+   | 名前 | `Salesforce sobject-all` | `Salesforce HO Data Steward` |
+   | リモート MCP サーバーの URL | 自分の組織の `sobject-all` のサーバ URL | 自分の組織の `HO Data Steward` のサーバ URL |
    | 詳細設定 → OAuth Client ID | [4-1](#4-1-用意するもの) のコンシューマ鍵を貼り付け | 同じコンシューマ鍵を貼り付け |
    | 詳細設定 → OAuth Client Secret | 空欄 | 空欄 |
 
