@@ -4,7 +4,7 @@ Salesforce World Tour Tokyo 2026（2026/11/19）のワークショップ
 「Salesforce データ整備・可視化 体験ワークショップ」の手順書です。
 
 - 当日のスライド: [Hosted MCP Server データ整備ワークショップ](https://docs.google.com/presentation/d/15npCY9T6a-DPF2KnRalCHNqW7wE7HqIU_-CZ1Xca6Xg/edit)
-- パッケージのインストール URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuRFQAY
+- パッケージのインストール URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000i9dtQAA
 
 > ※会社名・人名・数値はすべて架空のデータです。
 > ※画面の名前は 2026年9月時点の情報です。リリースで変わることがあります。
@@ -118,7 +118,7 @@ Hosted MCP Server には、外部クライアントアプリケーション `Cla
 
 インストール URL:
 
-https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuRFQAY
+https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000i9dtQAA
 
 「管理者のみインストール」を選んで「インストール」を押し、完了メールが届くまで待ちます。
 
@@ -133,7 +133,7 @@ https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000fuRFQA
 | 取引先責任者 | 136 | メール空欄・ドメイン誤り |
 | リード | 120 | 会社名のゆれ・重複 |
 | 商談 | 260 | 金額なし・失注理由なし |
-| 活動（ToDo） | 1,910 | 電話・メール・訪問 |
+| 活動（ToDo） | 646 | 電話・メール・訪問 |
 
 「**直してはいけない**」レコードも仕込んであります。AI の案をうのみにしないでください。
 
@@ -261,7 +261,7 @@ CSV でもらえば、そのまま営業への依頼に使えます。
 ### シナリオC 営業データの分析と可視化
 
 - **ゴール**: パイプライン・失注理由・活動量を分析し、ダッシュボードで見える化する
-- **対象**: 商談 260件／活動 1,910件／担当営業 6名
+- **対象**: 商談 260件／活動 646件／担当営業 6名
 - **分析の前に確かめる**: 重複した取引先にも商談があります。統合前に集計すると数字が割れます
 
 プロンプト例:
