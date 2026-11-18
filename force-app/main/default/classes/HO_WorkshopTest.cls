@@ -182,6 +182,9 @@ private class HO_WorkshopTest {
             Account master = accountByKey('HO-ACC-A04');
             Account dup1 = accountByKey('HO-ACC-A04-D1');
             Account dup2 = accountByKey('HO-ACC-A04-D2');
+            // 統合対象の重複には関連レコードがない（統合しても付け替えが起きない）
+            Assert.areEqual(0, [SELECT COUNT() FROM Contact WHERE AccountId IN (:dup1.Id, :dup2.Id)]);
+            Assert.areEqual(0, [SELECT COUNT() FROM Opportunity WHERE AccountId IN (:dup1.Id, :dup2.Id)]);
             HO_ToolMergeAccounts.Request req = new HO_ToolMergeAccounts.Request();
             req.masterAccountId = master.Id;
             req.duplicateAccountIds = dup1.Id + ',' + dup2.Id;
