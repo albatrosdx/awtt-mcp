@@ -4,7 +4,7 @@ Salesforce World Tour Tokyo 2026（2026/11/19）のワークショップ
 「Salesforce データ整備・可視化 体験ワークショップ」の手順書です。
 
 - 当日のスライド: [Hosted MCP Server データ整備ワークショップ](https://docs.google.com/presentation/d/15npCY9T6a-DPF2KnRalCHNqW7wE7HqIU_-CZ1Xca6Xg/edit)
-- パッケージのインストール URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000i9vdQAA
+- パッケージのインストール: 自分の組織の URL の末尾に `packaging/installPackage.apexp?p0=04tgL000000i9vdQAA` を付けて開く（[手順](#01-パッケージを入れる)）
 
 > ※会社名・人名・数値はすべて架空のデータです。
 > ※画面の名前は 2026年9月時点の情報です。リリースで変わることがあります。
@@ -127,11 +127,28 @@ Hosted MCP Server には、外部クライアントアプリケーション `Cla
 
 ### 01. パッケージを入れる
 
-インストール URL:
+**おすすめ: 自分の組織の URL から開く**
+
+ハンズオン組織にログインした状態で、ブラウザのアドレスバーにある**自分の組織のホームの URL** の末尾（`.com/` の後ろ）に、次の文字列を付けて開きます。
+
+```text
+packaging/installPackage.apexp?p0=04tgL000000i9vdQAA
+```
+
+例（`orgfarm-xxxxxxxxxx-dev-ed` の部分は自分の組織のものに置き換え）:
+
+```text
+https://orgfarm-xxxxxxxxxx-dev-ed.develop.lightning.force.com/packaging/installPackage.apexp?p0=04tgL000000i9vdQAA
+```
+
+- ログインし直す必要がありません
+- いまログインしている組織にインストールされるので、**別の組織（本番組織など）に誤ってインストールする心配がありません**
+
+共通のインストール URL（ログイン画面から開く方法）もありますが、ログインし直しが必要で、別の組織に入れてしまうおそれがあるため、上の方法をおすすめします。
 
 https://login.salesforce.com/packaging/installPackage.apexp?p0=04tgL000000i9vdQAA
 
-「管理者のみインストール」を選んで「インストール」を押し、完了メールが届くまで待ちます。
+インストール画面が開いたら、「管理者のみインストール」を選んで「インストール」を押し、完了メールが届くまで待ちます。
 
 ### 03. 練習用データを作る
 
