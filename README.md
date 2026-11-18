@@ -3,6 +3,7 @@
 Salesforce World Tour Tokyo 2026（2026/11/19）のワークショップ
 「Salesforce データ整備・可視化 体験ワークショップ」の手順書です。
 
+- 自社の組織で設定する手順: [docs/own-org-setup.md](docs/own-org-setup.md)
 - 当日のスライド: [Hosted MCP Server データ整備ワークショップ](https://docs.google.com/presentation/d/15npCY9T6a-DPF2KnRalCHNqW7wE7HqIU_-CZ1Xca6Xg/edit)
 - パッケージのインストール: 自分の組織の URL の末尾に `packaging/installPackage.apexp?p0=04tgL000000i9vdQAA` を付けて開く（[手順](#01-パッケージを入れる)）
 
@@ -324,3 +325,5 @@ OAuth クライアント ID（外部クライアントアプリ `Claude` のコ�
 6. 本番の前に **Sandbox** で試す（Developer Edition は先に動作確認）
 
 > 範囲は権限で決める。更新は道具で止める。最後は人が判断する。
+
+自社の組織で Hosted MCP Server と Claude をつなぐ手順（外部クライアントアプリの作り方、権限セットを持つ人だけに接続を限定する方法、MCP サーバの有効化、Claude 側の設定）は [docs/own-org-setup.md](docs/own-org-setup.md) にまとめています。
