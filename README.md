@@ -14,7 +14,7 @@ Salesforce World Tour Tokyo 2026（2026/11/19）のワークショップ
 
 ハンズオンは、無料の **Salesforce Developer Edition** 組織で行います。まだ持っていない場合は、最初に次の手順で用意してください（数分かかります）。
 
-1. https://developer.salesforce.com/signup を開き、名前・メールアドレス・ユーザー名などを入力して申し込む
+1. [https://developer.salesforce.com/signup](https://developer.salesforce.com/signup) を開き、名前・メールアドレス・ユーザー名などを入力して申し込む
    - ユーザー名はメールアドレスの形式で、**Salesforce 全体で重複しないもの**にします（例: `yourname@awtt-handson.example`）。実在のメールアドレスでなくてもかまいません
    - メールアドレスには、確認メールを受け取れる自分のアドレスを入れます
 2. 届いたメールのリンクを開き、パスワードを設定してログインする
